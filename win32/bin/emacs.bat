@@ -1,0 +1,2 @@
+SET PATH=%USERPROFILE%\.gem\ruby\2.1.0\bin;C:\msys64\usr\local\bin;C:\msys64\usr\local\sbin;C:\msys64\mingw64\bin;C:\msys64\usr\bin;C:\msys64\usr\bin\site_perl;C:\msys64\usr\bin\vendor_perl;C:\msys64\usr\bin\core_perl;%PATH%
+start %LOCALAPPDATA%\scoop\shims\runemacs.exe
