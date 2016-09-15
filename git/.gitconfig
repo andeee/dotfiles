@@ -5,3 +5,5 @@
   email = andeee@andeee.at
 [push]
 	default = simple
+[core]
+	editor = code -nw
