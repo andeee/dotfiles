@@ -1,2 +1,3 @@
 @ECHO OFF
-"C:\msys64\usr\bin\mintty.exe" "/usr/bin/zsh" --login
+set MSYS2_PATH_TYPE=inherit
+"C:\git-sdk-64\usr\bin\mintty.exe" "/usr/bin/zsh" --login

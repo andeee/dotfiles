@@ -24,5 +24,6 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 :--------------------------------------
 
+set MSYS2_PATH_TYPE=inherit
 set MSYS=winsymlinks:nativestrict
-"C:\msys64\usr\bin\mintty.exe" "/usr/bin/zsh" --login
+"C:\git-sdk-64\usr\bin\mintty.exe" "/usr/bin/zsh" --login
