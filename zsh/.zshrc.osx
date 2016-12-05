@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+alias home="networksetup -switchtolocation Automatic"
+alias work="networksetup -switchtolocation Work"
+
+net-mount () {
+    share=$1
+    osascript -e "try" -e "mount volume \"smb://andi@ds-fbw9/${share}\"" -e end "try"
+}

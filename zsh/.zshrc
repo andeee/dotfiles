@@ -17,10 +17,18 @@ zplug "zsh-users/zsh-completions"
 zplug "hkupty/ssh-agent"
 zplug "modules/prompt", from:prezto
 zplug "modules/git", from:prezto
+zplug "modules/ruby", from:prezto
+zplug "modules/node", from:prezto
+zplug "modules/osx", from:prezto
+zplug "modules/homebrew", from:prezto
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "jreese/zsh-titles"
+zplug "psprint/zsh-select"
+zplug "psprint/history-search-multi-word"
+zplug "~/.zshrc.osx", from:local, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "~/.zshrc.msys", from:local, if:"[[ $OSTYPE == msys ]]"
 
 zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:module:editor' key-bindings 'emacs'
@@ -37,23 +45,7 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
 
-if [[ "$OSTYPE" == msys ]]; then
-   zstyle ':completion:*' fake-files   '/:c' '/:d' '/:e' '/:x' '/:y' '/:z'
-fi
-
 fpath=("${ZDOTDIR:-$HOME}/.zcustom/functions" $fpath)
 autoload -U ${ZDOTDIR:-$HOME}/.zcustom/functions/*(:t)
 
-if [[ "$OSTYPE" == msys ]]; then
-  export SHELL=/usr/bin/zsh
-fi
-
-if [[ "$OSTYPE" == msys ]]; then
-  alias scoop="powershell -noprofile -ex unrestricted scoop.ps1"
-fi
-
 source `which activate.sh`
-
-if which ruby >/dev/null && which gem >/dev/null; then
-    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
