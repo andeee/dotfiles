@@ -12,6 +12,7 @@ zplug "modules/history", from:prezto
 zplug "modules/directory", from:prezto
 zplug "modules/spectrum", from:prezto
 zplug "modules/utility", from:prezto
+zplug "modules/completion", from:prezto
 zplug "zsh-users/zsh-completions"
 zplug "hkupty/ssh-agent"
 zplug "modules/prompt", from:prezto
@@ -39,10 +40,6 @@ zplug load --verbose
 if [[ "$OSTYPE" == msys ]]; then
    zstyle ':completion:*' fake-files   '/:c' '/:d' '/:e' '/:x' '/:y' '/:z'
 fi
-
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
 
 fpath=("${ZDOTDIR:-$HOME}/.zcustom/functions" $fpath)
 autoload -U ${ZDOTDIR:-$HOME}/.zcustom/functions/*(:t)
