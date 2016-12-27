@@ -15,6 +15,7 @@ zplug "modules/utility", from:prezto
 zplug "modules/completion", from:prezto
 zplug "zsh-users/zsh-completions"
 zplug "hkupty/ssh-agent"
+zplug "modules/gpg", from:prezto
 zplug "modules/prompt", from:prezto
 zplug "modules/git", from:prezto
 zplug "modules/ruby", from:prezto
