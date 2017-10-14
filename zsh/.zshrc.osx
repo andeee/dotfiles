@@ -4,5 +4,8 @@ alias work="networksetup -switchtolocation Work"
 
 net-mount () {
     share=$1
-    osascript -e "try" -e "mount volume \"smb://andi@ds-fbw9/${share}\"" -e end "try"
+    osascript -e "try" -e "mount volume \"afp://andi@ds-fbw9/${share}\"" -e end "try"
+    open "/Volumes/${share}"
 }
+
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"

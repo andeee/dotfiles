@@ -49,4 +49,4 @@ zplug load --verbose
 fpath=("${ZDOTDIR:-$HOME}/.zcustom/functions" $fpath)
 autoload -U ${ZDOTDIR:-$HOME}/.zcustom/functions/*(:t)
 
-source `which activate.sh`
+eval "$(direnv hook zsh)"
