@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+zplug "hkupty/ssh-agent"
+
 alias home="networksetup -switchtolocation Automatic"
 alias work="networksetup -switchtolocation Work"
 

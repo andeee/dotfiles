@@ -1,6 +1,6 @@
 BoldAsFont=no
-Font=Hack
-FontHeight=9
+Font=Fira Code
+FontHeight=10
 Locale=de_DE
 Charset=UTF-8
 Term=xterm-256color
@@ -23,5 +23,7 @@ Cyan=161,239,228
 BoldCyan=95,227,210
 White=248,248,242
 BoldWhite=249,248,245
-ThemeFile=
+ThemeFile=base16-gruvbox-dark-soft.minttyrc
 FontSmoothing=default
+Transparency=low
+LigaturesSupport=2
