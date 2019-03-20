@@ -1,8 +1,8 @@
 BoldAsFont=no
 Font=Fira Code
 FontHeight=10
-Locale=de_DE
-Charset=UTF-8
+Locale=
+Charset=
 Term=xterm-256color
 ForegroundColour=248,248,242
 BackgroundColour=39,40,34
