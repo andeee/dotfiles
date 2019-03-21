@@ -1,49 +1,61 @@
-source "$HOME/.zplugin/bin/zplugin.zsh"
+### Added by Zplugin's installer
+source "${ZDOTDIR:-$HOME}/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin's installer chunk
+
+zstyle ':prezto:*:*' color 'yes'
 
 zplugin ice svn silent; zplugin snippet PZT::modules/environment
 zplugin ice svn silent; zplugin snippet PZT::modules/terminal
 zplugin ice svn silent; zplugin snippet PZT::modules/history
 zplugin ice svn silent; zplugin snippet PZT::modules/completion
 zplugin ice svn silent; zplugin snippet PZT::modules/git
+
+zstyle ':prezto:module:editor' key-bindings 'emacs'
 zplugin ice svn silent; zplugin snippet PZT::modules/editor
+
 zplugin ice svn silent; zplugin snippet PZT::modules/directory
 zplugin ice svn silent; zplugin snippet PZT::modules/spectrum
 zplugin ice svn silent; zplugin snippet PZT::modules/utility
 zplugin ice svn silent; zplugin snippet OMZ::plugins/mvn
+
 zplugin light "zsh-users/zsh-completions"
+zplugin light "zsh-users/zsh-autosuggestions"
+
+autoload compinit
+compinit
+
 zplugin light "agkozak/agkozak-zsh-prompt"
 zplugin light "zsh-users/zsh-history-substring-search"
-zplugin light "zsh-users/zsh-syntax-highlighting"
+zplugin light "zdharma/fast-syntax-highlighting"
 zplugin light "psprint/zsh-select"
 zplugin light "psprint/history-search-multi-word"
 
+if [[ $OSTYPE == *darwin* ]]; then
+    zplugin ice svn silent; zplugin snippet PZT::modules/osx
+    zplugin ice svn silent; zplugin snippet PZT::modules/homebrew
+    source "${ZDOTDIR:-$HOME}/.zshrc.osx"
+fi
 
-# zplug "modules/gpg", from:prezto
-# zplug "modules/osx", from:prezto, if:"[[ $OSTYPE == *darwin* ]]"
-# zplug "modules/homebrew", from:prezto, if:"[[ $OSTYPE == *darwin* ]]"
-
-# zplug "${ZDOTDIR:-$HOME}/.zshrc.osx", from:local, if:"[[ $OSTYPE == *darwin* ]]"
-# zplug "${ZDOTDIR:-$HOME}/.zshrc.msys", from:local, if:"[[ $OSTYPE == msys ]]"
-
-zstyle ':prezto:*:*' color 'yes'
-# zstyle ':prezto:module:editor' key-bindings 'emacs'
+if [[ $OSTYPE == msys ]]; then
+    source "${ZDOTDIR:-$HOME}/.zshrc.msys"
+fi
 
 AGKOZAK_MULTILINE=0
 AGKOZAK_CUSTOM_PROMPT='%(?..%B%F{red}(%?%)%f%b )'
 AGKOZAK_CUSTOM_PROMPT+=$'%B%F{blue}%2v%f%b '
 AGKOZAK_CUSTOM_PROMPT+='%F{magenta}%(4V.❮.❯)%f '
 
-if [[ -d "${ZDOTDIR:-$HOME}/.zcustom/functions" ]]; then
-    fpath=("${ZDOTDIR:-$HOME}/.zcustom/functions" $fpath)
-    autoload -U ${ZDOTDIR:-$HOME}/.zcustom/functions/*(:t)
+CUSTOM_FUNCTIONS_DIR="${ZDOTDIR:-$HOME}/.zcustom/functions"
+
+if [[ -d "${CUSTOM_FUNCTIONS_DIR}" ]]; then
+    fpath=("${CUSTOM_FUNCTIONS_DIR}" $fpath)
+    autoload -U ${CUSTOM_FUNCTIONS_DIR}/*(:t)
 fi
 
 if (( $+commands[direnv] )); then
     eval "$(direnv hook zsh)"
-fi
-
-if [[ $OSTYPE == msys ]]; then
-    zstyle ':completion:*' fake-files   '/:c' '/:d' '/:e' '/:x' '/:y' '/:z'
 fi
 
 git-svn-reintegrate-branch() {
