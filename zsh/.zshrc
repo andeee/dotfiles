@@ -61,3 +61,40 @@ fi
 git-svn-reintegrate-branch() {
   git checkout master && git svn rebase && git checkout "$1" && git rebase master && git checkout master && git merge "$1"
 }
+
+typeset -gA SFG SBG
+# sed colors
+SFG[none]='\o033[00m'
+SBG[none]=${SFG[none]}
+colors=(black red green yellow blue magenta cyan white)
+for color in {0..255}; do
+  if (( $color >= 0 )) && (( $color < $#colors )); then
+    index=$(( $color + 1 ))
+    SFG[$colors[$index]]='\o033'"[38;5;${color}m"
+    SBG[$colors[$index]]='\o033'"[48;5;${color}m"
+  fi
+
+  SFG[$color]='\o033'"[38;5;${color}m"
+  SBG[$color]='\o033'"[48;5;${color}m"
+done
+unset color{s,} index
+
+# thanks to:  http://blog.blindgaenger.net/colorize_maven_output.html
+# and: http://johannes.jakeapp.com/blog/category/fun-with-linux/200901/maven-colorized
+# Colorize Maven Output
+alias maven="command mvn"
+
+function color_maven() {
+    maven "$@" | sed \
+        -e "s/Tests run: \([^,]*\), Failures: \([^,]*\), Errors: \([^,]*\), Skipped: \([^,]*\)/Tests run: ${SFG[green]}\1${SFG[none]}, Failures: ${SFG[yellow]}\2${SFG[none]}, Errors: ${SFG[red]}\3${SFG[none]}, Skipped: ${SFG[cyan]}\4${SFG[none]}/g" \
+        -e "s/\(\[\{0,1\}WARN\(ING\)\{0,1\}\]\{0,1\}.*\)/${SFG[yellow]}\1${SFG[none]}/g" \
+        -e "s/\(\[\{0,1\}ERROR\]\{0,1\}.*\)/${SFG[red]}\1${SFG[none]}/g" \
+        -e "s/\(\(BUILD \)\{0,1\}FAILURE.*\)/${SFG[red]}\1${SFG[none]}/g" \
+        -e "s/\(\(BUILD \)\{0,1\}SUCCESS.*\)/${SFG[green]}\1${SFG[none]}/g" \
+        -e "s/\(---.*---\|T E S T S.*\)/${SFG[cyan]}\1${SFG[none]}/g" \
+        -e "/\.jar/! s/\(Building .*\)/${SFG[cyan]}\1${SFG[none]}/g"
+    return $PIPESTATUS
+}
+
+# aliases
+alias mvn=color_maven
