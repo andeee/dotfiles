@@ -1,40 +1,43 @@
 ### Added by Zplugin's installer
-source "${ZDOTDIR:-$HOME}/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zplugin's installer chunk
 
 zstyle ':prezto:*:*' color 'yes'
 
-zplugin ice svn silent; zplugin snippet PZT::modules/environment
-zplugin ice svn silent; zplugin snippet PZT::modules/terminal
-zplugin ice svn silent; zplugin snippet PZT::modules/history
-zplugin ice svn silent; zplugin snippet PZT::modules/completion
-zplugin ice svn silent; zplugin snippet PZT::modules/git
+zinit ice svn silent; zinit snippet PZT::modules/environment
+zinit ice svn silent; zinit snippet PZT::modules/terminal
+zinit ice svn silent; zinit snippet PZT::modules/history
+zinit ice svn silent; zinit snippet PZT::modules/completion
+zinit ice svn silent; zinit snippet PZT::modules/git
 
 zstyle ':prezto:module:editor' key-bindings 'emacs'
-zplugin ice svn silent; zplugin snippet PZT::modules/editor
+zinit ice svn silent; zinit snippet PZT::modules/editor
 
-zplugin ice svn silent; zplugin snippet PZT::modules/directory
-zplugin ice svn silent; zplugin snippet PZT::modules/spectrum
-zplugin ice svn silent; zplugin snippet PZT::modules/utility
-zplugin ice svn silent; zplugin snippet OMZ::plugins/mvn
+zinit ice svn silent; zinit snippet PZT::modules/directory
+zinit ice svn silent; zinit snippet PZT::modules/spectrum
+zinit ice svn silent; zinit snippet PZT::modules/utility
+zinit ice svn silent; zinit snippet OMZ::plugins/mvn
 
-zplugin light "zsh-users/zsh-completions"
-zplugin light "zsh-users/zsh-autosuggestions"
+zinit light "zsh-users/zsh-completions"
+zinit light "zsh-users/zsh-autosuggestions"
 
 autoload compinit
 compinit
 
-zplugin light "agkozak/agkozak-zsh-prompt"
-zplugin light "zsh-users/zsh-history-substring-search"
-zplugin light "zdharma/fast-syntax-highlighting"
-zplugin light "psprint/zsh-select"
-zplugin light "psprint/history-search-multi-word"
+zinit light "agkozak/agkozak-zsh-prompt"
+zinit light "zsh-users/zsh-history-substring-search"
+zinit light "zdharma/fast-syntax-highlighting"
+zinit light "zdharma-continuum/zsh-select"
+zinit light "zdharma-continuum/history-search-multi-word"
 
 if [[ $OSTYPE == *darwin* ]]; then
-    zplugin ice svn silent; zplugin snippet PZT::modules/osx
-    zplugin ice svn silent; zplugin snippet PZT::modules/homebrew
+    zinit ice svn silent; zinit snippet PZT::modules/osx
+    zinit ice svn silent; zinit snippet PZT::modules/homebrew
     source "${ZDOTDIR:-$HOME}/.zshrc.osx"
 fi
 
@@ -126,3 +129,12 @@ function color_maven() {
 
 # aliases
 alias mvn=color_maven
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
