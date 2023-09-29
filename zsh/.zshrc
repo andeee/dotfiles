@@ -34,6 +34,7 @@ zinit light "zsh-users/zsh-history-substring-search"
 zinit light "zdharma/fast-syntax-highlighting"
 zinit light "zdharma-continuum/zsh-select"
 zinit light "zdharma-continuum/history-search-multi-word"
+zinit light "hkupty/ssh-agent"
 
 if [[ $OSTYPE == *darwin* ]]; then
     zinit ice svn silent; zinit snippet PZT::modules/osx

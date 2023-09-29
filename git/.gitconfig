@@ -6,4 +6,8 @@
 [push]
 	default = simple
 [core]
-	editor = code -nw
+	editor = /usr/bin/vim
+	autocrlf = input
+[pull]
+	rebase = true
+	ff = only
