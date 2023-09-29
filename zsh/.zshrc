@@ -29,7 +29,6 @@ zinit light "zsh-users/zsh-autosuggestions"
 autoload compinit
 compinit
 
-zinit light "agkozak/agkozak-zsh-prompt"
 zinit light "zsh-users/zsh-history-substring-search"
 zinit light "zdharma/fast-syntax-highlighting"
 zinit light "zdharma-continuum/zsh-select"
@@ -45,11 +44,6 @@ fi
 if [[ $OSTYPE == msys ]]; then
     source "${ZDOTDIR:-$HOME}/.zshrc.msys"
 fi
-
-AGKOZAK_MULTILINE=0
-AGKOZAK_CUSTOM_PROMPT='%(?..%B%F{red}(%?%)%f%b )'
-AGKOZAK_CUSTOM_PROMPT+=$'%B%F{blue}%2v%f%b '
-AGKOZAK_CUSTOM_PROMPT+='%F{magenta}%(4V.❮.❯)%f '
 
 CUSTOM_FUNCTIONS_DIR="${ZDOTDIR:-$HOME}/.zcustom/functions"
 
@@ -127,6 +121,11 @@ function color_maven() {
         -e "/\.jar/! s/\(Building .*\)/${SFG[Cyan1]}\1${SFG[none]}/g"
     return $PIPESTATUS
 }
+
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
 # aliases
 alias mvn=color_maven
