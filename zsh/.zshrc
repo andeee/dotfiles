@@ -143,7 +143,7 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-	export PATH="${PATH}:/mnt/c/Program Files/Rancher Desktop/resources/resources/linux/bin:/mnt/c/Windows/System32"
-	export DISPLAY=$(ip route |awk '/^default/{print $3}'):0
+    export PATH="${PATH}:/mnt/c/Program Files/Rancher Desktop/resources/resources/linux/bin:/mnt/c/Windows/System32"
+    export DISPLAY=$(ip route |awk '/^default/{print $3}'):0
+    export BROWSER="wslview"
 fi
