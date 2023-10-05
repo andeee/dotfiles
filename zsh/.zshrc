@@ -53,6 +53,7 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     export PULS_SERVER="tcp:$(ip route |awk '/^default/{print $3}')"
     export BROWSER="wslview"
     zstyle :omz:plugins:ssh-agent identities id_rsa_scm_npi id_rsa_github_work
+    unsetopt pathdirs
 fi
 
 zinit light "hkupty/ssh-agent"
