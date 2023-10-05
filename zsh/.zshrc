@@ -122,6 +122,7 @@ function color_maven() {
     return $PIPESTATUS
 }
 
+
 zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh"
@@ -144,6 +145,11 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     export PATH="${PATH}:/mnt/c/Program Files/Rancher Desktop/resources/resources/linux/bin:/mnt/c/Windows/System32"
-    export DISPLAY=$(ip route |awk '/^default/{print $3}'):0
+    export DISPLAY="$(ip route |awk '/^default/{print $3}'):0"
+    export PULS_SERVER="tcp:$(ip route |awk '/^default/{print $3}')"
     export BROWSER="wslview"
+fi
+
+if [[ -d "${HOME}/.local/bin" ]]; then
+    export PATH="${PATH}:/${HOME}/.local/bin"
 fi
