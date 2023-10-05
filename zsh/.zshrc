@@ -33,7 +33,6 @@ zinit light "zsh-users/zsh-history-substring-search"
 zinit light "zdharma/fast-syntax-highlighting"
 zinit light "zdharma-continuum/zsh-select"
 zinit light "zdharma-continuum/history-search-multi-word"
-zinit light "hkupty/ssh-agent"
 
 if [[ $OSTYPE == *darwin* ]]; then
     zinit ice svn silent; zinit snippet PZT::modules/osx
@@ -44,6 +43,19 @@ fi
 if [[ $OSTYPE == msys ]]; then
     source "${ZDOTDIR:-$HOME}/.zshrc.msys"
 fi
+
+if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    export PATH="${PATH}:/mnt/c/Program Files/Rancher Desktop/resources/resources/linux/bin:/mnt/c/Windows/System32"
+    export DISPLAY="$(ip route |awk '/^default/{print $3}'):0"
+    export PULS_SERVER="tcp:$(ip route |awk '/^default/{print $3}')"
+    export BROWSER="wslview"
+    zstyle :omz:plugins:ssh-agent identities id_rsa_scm_npi id_rsa_github_work
+fi
+
+zinit light "hkupty/ssh-agent"
 
 CUSTOM_FUNCTIONS_DIR="${ZDOTDIR:-$HOME}/.zcustom/functions"
 
@@ -139,16 +151,6 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
-
-if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    export PATH="${PATH}:/mnt/c/Program Files/Rancher Desktop/resources/resources/linux/bin:/mnt/c/Windows/System32"
-    export DISPLAY="$(ip route |awk '/^default/{print $3}'):0"
-    export PULS_SERVER="tcp:$(ip route |awk '/^default/{print $3}')"
-    export BROWSER="wslview"
-fi
 
 if [[ -d "${HOME}/.local/bin" ]]; then
     export PATH="${PATH}:/${HOME}/.local/bin"
